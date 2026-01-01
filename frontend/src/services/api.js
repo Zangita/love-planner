@@ -1,4 +1,9 @@
-const API_URL = 'http://localhost:3000';
+const API_URL =
+    import.meta.env.VITE_API_URL;
+
+if (!API_URL) {
+    console.error('❌ VITE_API_URL is not defined');
+}
 
 export async function getPlans() {
     const response = await fetch(`${API_URL}/plans`);
