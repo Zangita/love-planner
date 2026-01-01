@@ -10,6 +10,7 @@ import PlanCard from './components/PlanCard';
 import CreatePlanForm from './components/CreatePlanForm';
 import Modal from './components/Modal';
 import { motion } from 'framer-motion';
+import { fireConfetti } from './utils/confetti';
 
 function App() {
     const [plans, setPlans] = useState([]);
@@ -51,6 +52,10 @@ function App() {
             } else {
                 const newPlan = await createPlan(planData);
                 setPlans(prev => [...prev, newPlan]);
+
+                // 🎉 Confeti suave al crear plan
+                fireConfetti();
+                setTimeout(() => fireConfetti(), 300);
             }
 
             setIsModalOpen(false);
