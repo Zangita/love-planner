@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+
+/* ============================= */
+
+
+/* 📱 FAB solo en mobile */
+
+
+/* ============================= */
+
+@media (max-width: 768px) {
+    .fab {
+        display: block !important;
+    }
+    .new-plan-desktop {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .fab {
+        display: none !important;
+    }
+}
