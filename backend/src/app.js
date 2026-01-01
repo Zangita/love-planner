@@ -7,7 +7,13 @@ const plansRoutes = require('./routes/plans.routes');
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+    origin: [
+        'https://love-planner.vercel.app'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: false
+}));
 app.use(express.json());
 
 // ✅ ROOT ROUTE (IMPORTANTE)

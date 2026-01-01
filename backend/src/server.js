@@ -12,6 +12,10 @@ app.listen(PORT, '0.0.0.0', () => {
 
 const { checkAndSendReminders } = require('./services/reminderService');
 
-setInterval(() => {
-    checkAndSendReminders();
+setInterval(async() => {
+    try {
+        await checkAndSendReminders();
+    } catch (err) {
+        console.error('⚠️ Reminder job crashed:', err.message);
+    }
 }, 60 * 1000);

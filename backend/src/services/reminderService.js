@@ -18,20 +18,31 @@ function checkAndSendReminders() {
     `, [targetDate],
         async(err, plans) => {
             if (err) {
-                console.error('❌ Error fetching reminders', err);
+                console.error('❌ Error fetching reminders:', err.message);
                 return;
             }
 
             for (const plan of plans) {
+                let allSent = true;
+
                 for (const email of EMAILS) {
-                    await sendReminderEmail(email, plan);
+                    try {
+                        await sendReminderEmail(email, plan);
+                    } catch {
+                        allSent = false;
+                    }
                 }
 
-                db.run(
-                    `UPDATE plans SET reminder_sent = 1 WHERE id = ?`, [plan.id]
-                );
-
-                console.log(`📧 Reminder sent for "${plan.title}"`);
+                if (allSent) {
+                    db.run(
+                        `UPDATE plans SET reminder_sent = 1 WHERE id = ?`, [plan.id]
+                    );
+                    console.log(`📧 Reminder sent for "${plan.title}"`);
+                } else {
+                    console.warn(
+                        `⚠️ Reminder NOT fully sent for "${plan.title}", will retry later`
+                    );
+                }
             }
         }
     );

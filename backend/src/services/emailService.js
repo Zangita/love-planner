@@ -78,12 +78,20 @@ function buildRomanticEmail(plan) {
 }
 
 async function sendReminderEmail(to, plan) {
-  await transporter.sendMail({
-    from: '"💖 Love Planner" <joelcarvajal200314@gmail.com>',
-    to,
-    subject: `💖 Recordatorio: ${plan.title} es mañana`,
-    html: buildRomanticEmail(plan)
-  });
+  try {
+    await transporter.sendMail({
+      from: '"💖 Love Planner" <joelcarvajal200314@gmail.com>',
+      to,
+      subject: `💖 Recordatorio: ${plan.title} es mañana`,
+      html: buildRomanticEmail(plan)
+    });
+  } catch (err) {
+    console.error(
+      `⚠️ Email failed for "${plan.title}" to ${to}:`,
+      err.message
+    );
+    // IMPORTANTE: no lanzar el error
+  }
 }
 
 module.exports = { sendReminderEmail };
