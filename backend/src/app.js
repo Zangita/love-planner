@@ -10,9 +10,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ✅ ROOT endpoint (OBLIGATORIO para Railway)
+// ✅ ROOT ROUTE (IMPORTANTE)
 app.get('/', (req, res) => {
-    res.status(200).send('💖 Love Planner backend is running');
+    res.json({
+        status: 'ok',
+        service: 'love-planner-backend',
+        time: new Date().toISOString()
+    });
 });
 
 // Routes
