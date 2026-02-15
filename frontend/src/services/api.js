@@ -41,6 +41,7 @@ export async function deletePlan(id) {
     return response.json();
 }
 
+
 export async function updatePlan(id, plan) {
     const response = await fetch(`${API_URL}/plans/${id}`, {
         method: 'PUT',
@@ -52,6 +53,32 @@ export async function updatePlan(id, plan) {
 
     if (!response.ok) {
         throw new Error('Error updating plan');
+    }
+
+    return response.json();
+}
+
+// 💌 NOTAS ROMÁNTICAS
+
+export async function getNotes() {
+    const response = await fetch(`${API_URL}/notes`);
+    if (!response.ok) {
+        throw new Error('Error fetching notes');
+    }
+    return response.json();
+}
+
+export async function createNote(note) {
+    const response = await fetch(`${API_URL}/notes`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(note)
+    });
+
+    if (!response.ok) {
+        throw new Error('Error creating note');
     }
 
     return response.json();
