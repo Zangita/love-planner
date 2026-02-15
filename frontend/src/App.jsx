@@ -133,7 +133,7 @@ function App() {
     return ( <
         div style = { styles.container } >
         <
-        h1 style = { styles.title } > 💖Love Planner💖 < /h1> <
+        h1 style = { styles.title } > Planes de Joel y Kenyi🥰 < /h1> <
         p style = { styles.subtitle } >
         Planes especiales para compartir juntos <
         /p>
@@ -149,7 +149,7 @@ function App() {
                 setIsModalOpen(true);
             }
         } >
-        Nuevo plan <
+        ❤️Nuevo plan <
         /button>
 
         <
