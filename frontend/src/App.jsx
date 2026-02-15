@@ -19,8 +19,9 @@ function App() {
     const [editingPlan, setEditingPlan] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // 🗑 Plan pendiente de eliminar (para modal)
+    // 🗑 Plan pendiente de eliminar
     const [planToDelete, setPlanToDelete] = useState(null);
+    const [isNotesOpen, setIsNotesOpen] = useState(false);
 
     useEffect(() => {
         getPlans()
@@ -53,7 +54,7 @@ function App() {
                 const newPlan = await createPlan(planData);
                 setPlans(prev => [...prev, newPlan]);
 
-                // 🎉 Confeti suave al crear plan
+                // 🎉 Confeti suave
                 fireConfetti();
                 setTimeout(() => fireConfetti(), 300);
             }
@@ -64,7 +65,7 @@ function App() {
         }
     }
 
-    // 🗑 Solicitar eliminar (abre modal)
+    // 🗑 Solicitar eliminar
     function handleDeletePlan(id) {
         const plan = plans.find(p => p.id === id);
         setPlanToDelete(plan);
@@ -76,7 +77,9 @@ function App() {
 
         try {
             await deletePlan(planToDelete.id);
-            setPlans(prev => prev.filter(p => p.id !== planToDelete.id));
+            setPlans(prev =>
+                prev.filter(p => p.id !== planToDelete.id)
+            );
         } catch (error) {
             console.error('Error deleting plan:', error);
         } finally {
@@ -147,6 +150,14 @@ function App() {
             }
         } >
         Nuevo plan <
+        /button>
+
+        <
+        button style = {
+            {...styles.newButton, marginLeft: '10px', background: '#ff5c8a' } }
+        onClick = {
+            () => setIsNotesOpen(true) } >
+        💌Notas <
         /button> <
         /div>
 
@@ -253,7 +264,12 @@ function App() {
             animate = {
                 { y: [0, -6, 0] } }
             transition = {
-                { duration: 2, repeat: Infinity, ease: 'easeInOut' } }
+                {
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'easeInOut'
+                }
+            }
             onClick = {
                     () => {
                         setEditingPlan(null);
@@ -417,11 +433,9 @@ function App() {
             paddingLeft: '26px',
             marginBottom: '30px'
         },
-
         timelineItem: {
             position: 'relative'
         },
-
         timelineDot: {
             position: 'absolute',
             left: '-26px',
