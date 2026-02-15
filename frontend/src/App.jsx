@@ -3,7 +3,9 @@ import {
     getPlans,
     createPlan,
     deletePlan,
-    updatePlan
+    updatePlan,
+    getNotes,
+    createNote
 } from './services/api';
 
 import PlanCard from './components/PlanCard';
@@ -22,6 +24,7 @@ function App() {
     // 🗑 Plan pendiente de eliminar
     const [planToDelete, setPlanToDelete] = useState(null);
     const [isNotesOpen, setIsNotesOpen] = useState(false);
+    const [notes, setNotes] = useState([]);
 
     useEffect(() => {
         getPlans()
@@ -34,6 +37,18 @@ function App() {
                 setLoading(false);
             });
     }, []);
+
+    useEffect(() => {
+        if (isNotesOpen) {
+            getNotes()
+                .then(data => {
+                    setNotes(data);
+                })
+                .catch(error => {
+                    console.error('Error loading notes:', error);
+                });
+        }
+    }, [isNotesOpen]);
 
     // ➕ Crear / ✏️ Editar
     async function handleCreatePlan(planData) {
@@ -350,10 +365,32 @@ function App() {
                     { marginBottom: '20px' } } > 💌Notas Secretas <
                 /h2>
 
-            <
-            p > Aquí irán las notas💖 < /p> <
-                /Modal> <
-                /div>
+            {
+                notes.length === 0 && ( <
+                    p > No hay notas aún💔 < /p>
+                )
+            }
+
+            {
+                notes.map(note => ( <
+                    div key = { note.id }
+                    style = {
+                        {
+                            background: 'rgba(255,255,255,0.25)',
+                            padding: '12px',
+                            borderRadius: '12px',
+                            marginBottom: '10px'
+                        }
+                    } >
+                    <
+                    strong > { note.author } < /strong> <
+                    p style = {
+                        { margin: '5px 0 0' } } > { note.content } < /p> <
+                    /div>
+                ))
+            } <
+            /Modal> <
+            /div>
         );
     }
 
