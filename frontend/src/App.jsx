@@ -338,6 +338,20 @@ function App() {
                 Sí, eliminar <
                 /button> <
                 /div> <
+                /Modal>
+
+            { /* MODAL NOTAS */ } <
+            Modal
+            isOpen = { isNotesOpen }
+            onClose = {
+                    () => setIsNotesOpen(false) } >
+                <
+                h2 style = {
+                    { marginBottom: '20px' } } > 💌Notas Secretas <
+                /h2>
+
+            <
+            p > Aquí irán las notas💖 < /p> <
                 /Modal> <
                 /div>
         );
