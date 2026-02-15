@@ -29,6 +29,16 @@ db.serialize(() => {
     // 🔔 Nuevas columnas para recordatorios (seguras)
     db.run(`ALTER TABLE plans ADD COLUMN remind_at TEXT`, () => {});
     db.run(`ALTER TABLE plans ADD COLUMN reminder_sent INTEGER DEFAULT 0`, () => {});
+
+    // 📝 Tabla de notas románticas
+    db.run(`
+      CREATE TABLE IF NOT EXISTS notes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        author TEXT NOT NULL,
+        content TEXT NOT NULL,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
 });
 
 module.exports = db;
