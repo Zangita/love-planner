@@ -83,3 +83,31 @@ export async function createNote(note) {
 
     return response.json();
 }
+
+export async function updateNote(id, content) {
+    const response = await fetch(`${API_URL}/notes/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ content })
+    });
+
+    if (!response.ok) {
+        throw new Error('Error updating note');
+    }
+
+    return response.json();
+}
+
+export async function deleteNote(id) {
+    const response = await fetch(`${API_URL}/notes/${id}`, {
+        method: 'DELETE'
+    });
+
+    if (!response.ok) {
+        throw new Error('Error deleting note');
+    }
+
+    return response.json();
+}
