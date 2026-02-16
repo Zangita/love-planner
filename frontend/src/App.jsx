@@ -25,6 +25,11 @@ function App() {
     const [planToDelete, setPlanToDelete] = useState(null);
     const [isNotesOpen, setIsNotesOpen] = useState(false);
     const [notes, setNotes] = useState([]);
+    const [currentUser, setCurrentUser] = useState(
+        localStorage.getItem('lovePlannerUser') || ''
+    );
+
+    const [newNote, setNewNote] = useState('');
 
     useEffect(() => {
         getPlans()
@@ -365,7 +370,90 @@ function App() {
                     { marginBottom: '20px' } } > 💌Notas Secretas <
                 /h2>
 
-            {
+            { /* Selector de identidad */ } {
+                !currentUser && ( <
+                    div style = {
+                        { marginBottom: '20px' } } >
+                    <
+                    p > ¿Quién está escribiendo hoy ? 💕 < /p>
+
+                    <
+                    button style = {
+                        {...styles.newButton, marginRight: '10px' } }
+                    onClick = {
+                        () => {
+                            localStorage.setItem('lovePlannerUser', 'Joel');
+                            setCurrentUser('Joel');
+                        }
+                    } >
+                    Joel <
+                    /button>
+
+                    <
+                    button style = { styles.newButton }
+                    onClick = {
+                        () => {
+                            localStorage.setItem('lovePlannerUser', 'Kenyi');
+                            setCurrentUser('Kenyi');
+                        }
+                    } >
+                    Kenyi <
+                    /button> <
+                    /div>
+                )
+            }
+
+            { /* Formulario de nueva nota */ } {
+                currentUser && ( <
+                    div style = {
+                        { marginBottom: '20px' } } >
+                    <
+                    p >
+                    Escribiendo como < strong > { currentUser } < /strong> 💖 <
+                    /p>
+
+                    <
+                    textarea value = { newNote }
+                    onChange = {
+                        (e) => setNewNote(e.target.value) }
+                    placeholder = "Escribe algo bonito..."
+                    style = {
+                        {
+                            width: '100%',
+                            padding: '10px',
+                            borderRadius: '10px',
+                            border: 'none',
+                            marginBottom: '10px'
+                        }
+                    }
+                    />
+
+                    <
+                    button style = { styles.newButton }
+                    onClick = {
+                        async() => {
+                            if (!newNote.trim()) return;
+
+                            try {
+                                const created = await createNote({
+                                    author: currentUser,
+                                    content: newNote
+                                });
+
+                                setNotes(prev => [created, ...prev]);
+                                setNewNote('');
+                            } catch (err) {
+                                console.error('Error creating note:', err);
+                            }
+                        }
+                    } >
+                    Guardar nota💌 <
+                    /button> <
+                    /div>
+                )
+            }
+
+            { /* Lista de notas */ } {
                 notes.length === 0 && ( <
                     p > No hay notas aún💔 < /p>
                 )
