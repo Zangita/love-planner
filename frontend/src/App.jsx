@@ -523,7 +523,42 @@ function App() {
                     .filter(note => note.author === 'Joel')
                     .map(note => ( <
                         div key = { note.id }
-                        style = { styles.postItBlue } > { note.content } <
+                        style = { styles.postItBlue } > {
+                            editingNoteId === note.id ? ( <
+                                >
+                                <
+                                textarea value = { editedContent }
+                                onChange = {
+                                    (e) => setEditedContent(e.target.value) }
+                                style = {
+                                    {
+                                        width: '100%',
+                                        border: 'none',
+                                        borderRadius: '8px',
+                                        padding: '6px'
+                                    }
+                                }
+                                /> <
+                                button style = {
+                                    {...styles.cancelButton, marginTop: '5px' } }
+                                onClick = {
+                                    () => saveEditedNote(note.id) } >
+                                Guardar💖 <
+                                /button> <
+                                />
+                            ) : ( <
+                                >
+                                <
+                                div style = { styles.noteActions } >
+                                <
+                                button onClick = {
+                                    () => startEditing(note) } > ✏️ < /button> <
+                                button onClick = {
+                                    () => handleDeleteNote(note.id) } > 🗑 < /button> <
+                                /div> { note.content } <
+                                />
+                            )
+                        } <
                         /div>
                     ))
             } <
@@ -540,7 +575,42 @@ function App() {
                     .filter(note => note.author === 'Kenyi')
                     .map(note => ( <
                         div key = { note.id }
-                        style = { styles.postItPink } > { note.content } <
+                        style = { styles.postItPink } > {
+                            editingNoteId === note.id ? ( <
+                                >
+                                <
+                                textarea value = { editedContent }
+                                onChange = {
+                                    (e) => setEditedContent(e.target.value) }
+                                style = {
+                                    {
+                                        width: '100%',
+                                        border: 'none',
+                                        borderRadius: '8px',
+                                        padding: '6px'
+                                    }
+                                }
+                                /> <
+                                button style = {
+                                    {...styles.cancelButton, marginTop: '5px' } }
+                                onClick = {
+                                    () => saveEditedNote(note.id) } >
+                                Guardar💖 <
+                                /button> <
+                                />
+                            ) : ( <
+                                >
+                                <
+                                div style = { styles.noteActions } >
+                                <
+                                button onClick = {
+                                    () => startEditing(note) } > ✏️ < /button> <
+                                button onClick = {
+                                    () => handleDeleteNote(note.id) } > 🗑 < /button> <
+                                /div> { note.content } <
+                                />
+                            )
+                        } <
                         /div>
                     ))
             } <
@@ -691,6 +761,12 @@ function App() {
             borderRadius: '12px',
             transform: 'rotate(2deg)',
             boxShadow: '0 8px 18px rgba(0,0,0,0.15)'
+        },
+        noteActions: {
+            display: 'flex',
+            justifyContent: 'flex-end',
+            gap: '6px',
+            marginBottom: '5px'
         },
     };
 
