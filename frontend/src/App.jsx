@@ -572,7 +572,26 @@ function App() {
                                     () => startEditing(note) } > ✏️ < /button> <
                                 button onClick = {
                                     () => handleDeleteNote(note.id) } > 🗑 < /button> <
-                                /div> { note.content } <
+                                /div> { note.content } {
+                                    note.created_at && ( <
+                                        small style = {
+                                            {
+                                                display: 'block',
+                                                marginTop: '8px',
+                                                opacity: 0.6,
+                                                fontSize: '0.75rem'
+                                            }
+                                        } >
+                                        {
+                                            new Date(note.created_at).toLocaleString('es-CR', {
+                                                timeZone: 'America/Costa_Rica',
+                                                dateStyle: 'medium',
+                                                timeStyle: 'short'
+                                            })
+                                        } <
+                                        /small>
+                                    )
+                                } <
                                 />
                             )
                         } <
@@ -635,7 +654,26 @@ function App() {
                                     () => startEditing(note) } > ✏️ < /button> <
                                 button onClick = {
                                     () => handleDeleteNote(note.id) } > 🗑 < /button> <
-                                /div> { note.content } <
+                                /div> { note.content } {
+                                    note.created_at && ( <
+                                        small style = {
+                                            {
+                                                display: 'block',
+                                                marginTop: '8px',
+                                                opacity: 0.6,
+                                                fontSize: '0.75rem'
+                                            }
+                                        } >
+                                        {
+                                            new Date(note.created_at).toLocaleString('es-CR', {
+                                                timeZone: 'America/Costa_Rica',
+                                                dateStyle: 'medium',
+                                                timeStyle: 'short'
+                                            })
+                                        } <
+                                        /small>
+                                    )
+                                } <
                                 />
                             )
                         } <
