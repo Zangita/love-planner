@@ -580,7 +580,7 @@ function App() {
                                 {
                                     note.created_at && ( <
                                         small style = { styles.noteDate } > {
-                                            new Date(note.created_at).toLocaleString('es-CR', {
+                                            new Date(note.created_at + 'Z').toLocaleString('es-CR', {
                                                 timeZone: 'America/Costa_Rica',
                                                 dateStyle: 'medium',
                                                 timeStyle: 'short'
@@ -659,7 +659,7 @@ function App() {
                                 {
                                     note.created_at && ( <
                                         small style = { styles.noteDate } > {
-                                            new Date(note.created_at).toLocaleString('es-CR', {
+                                            new Date(note.created_at + 'Z').toLocaleString('es-CR', {
                                                 timeZone: 'America/Costa_Rica',
                                                 dateStyle: 'medium',
                                                 timeStyle: 'short'
