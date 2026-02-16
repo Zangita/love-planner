@@ -476,24 +476,41 @@ function App() {
                 )
             }
 
+            <
+            div style = { styles.notesGrid } > { /* Joel */ } <
+                div style = { styles.notesColumn } >
+                <
+                h3 style = {
+                    { marginBottom: '10px' } } > ❣️Joel < /h3>
+
             {
-                notes.map(note => ( <
-                    div key = { note.id }
-                    style = {
-                        {
-                            background: 'rgba(255,255,255,0.25)',
-                            padding: '12px',
-                            borderRadius: '12px',
-                            marginBottom: '10px'
-                        }
-                    } >
-                    <
-                    strong > { note.author } < /strong> <
-                    p style = {
-                        { margin: '5px 0 0' } } > { note.content } < /p> <
-                    /div>
-                ))
+                notes
+                    .filter(note => note.author === 'Joel')
+                    .map(note => ( <
+                        div key = { note.id }
+                        style = { styles.postItBlue } > { note.content } <
+                        /div>
+                    ))
             } <
+            /div>
+
+            { /* Kenyi */ } <
+            div style = { styles.notesColumn } >
+                <
+                h3 style = {
+                    { marginBottom: '10px' } } > 💖Kenyi < /h3>
+
+            {
+                notes
+                    .filter(note => note.author === 'Kenyi')
+                    .map(note => ( <
+                        div key = { note.id }
+                        style = { styles.postItPink } > { note.content } <
+                        /div>
+                    ))
+            } <
+            /div> <
+            /div> <
             /Modal> <
             /div>
         );
@@ -609,7 +626,37 @@ function App() {
             bottom: 0,
             width: '2px',
             background: 'rgba(255,255,255,0.3)'
-        }
+        },
+        notesGrid: {
+            display: 'flex',
+            gap: '20px',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            marginTop: '20px'
+        },
+        notesColumn: {
+            flex: '1 1 200px',
+            maxWidth: '250px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px'
+        },
+        postItBlue: {
+            background: '#d0e7ff',
+            color: '#333',
+            padding: '12px',
+            borderRadius: '12px',
+            transform: 'rotate(-2deg)',
+            boxShadow: '0 8px 18px rgba(0,0,0,0.15)'
+        },
+        postItPink: {
+            background: '#ffd6e7',
+            color: '#333',
+            padding: '12px',
+            borderRadius: '12px',
+            transform: 'rotate(2deg)',
+            boxShadow: '0 8px 18px rgba(0,0,0,0.15)'
+        },
     };
 
     export default App;
