@@ -36,6 +36,37 @@ class NoteModel {
             }
         });
     }
+
+    static update(id, content, callback) {
+        const sql = `
+    UPDATE notes
+    SET content = ?
+    WHERE id = ?
+  `;
+
+        db.run(sql, [content, id], function(err) {
+            if (err) {
+                callback(err);
+            } else {
+                callback(null, { updated: this.changes });
+            }
+        });
+    }
+
+    static delete(id, callback) {
+        const sql = `
+    DELETE FROM notes
+    WHERE id = ?
+  `;
+
+        db.run(sql, [id], function(err) {
+            if (err) {
+                callback(err);
+            } else {
+                callback(null, { deleted: this.changes });
+            }
+        });
+    }
 }
 
 module.exports = NoteModel;
