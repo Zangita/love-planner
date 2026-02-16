@@ -413,6 +413,23 @@ function App() {
                     /p>
 
                     <
+                    button style = {
+                        {
+                            ...styles.cancelButton,
+                                marginBottom: '10px',
+                                fontSize: '0.8rem'
+                        }
+                    }
+                    onClick = {
+                        () => {
+                            localStorage.removeItem('lovePlannerUser');
+                            setCurrentUser('');
+                        }
+                    } >
+                    Cambiar usuario🔄 <
+                    /button>
+
+                    <
                     textarea value = { newNote }
                     onChange = {
                         (e) => setNewNote(e.target.value) }
