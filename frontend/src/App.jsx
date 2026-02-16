@@ -405,6 +405,12 @@ function App() {
                     { marginBottom: '20px' } } > 💌Notas Secretas <
                 /h2>
 
+            <
+            p style = {
+                    { opacity: 0.8, marginBottom: '20px' } } >
+                Para escribir cosas lindas😘 o no...😈✨ <
+                /p>
+
             { /* Selector de identidad */ } {
                 !currentUser && ( <
                     div style = {
@@ -523,7 +529,18 @@ function App() {
                     .filter(note => note.author === 'Joel')
                     .map(note => ( <
                         div key = { note.id }
-                        style = { styles.postItBlue } > {
+                        style = { styles.postItBlue }
+                        onMouseEnter = {
+                            (e) => {
+                                e.currentTarget.style.transform = 'rotate(0deg) scale(1.05)';
+                            }
+                        }
+                        onMouseLeave = {
+                            (e) => {
+                                e.currentTarget.style.transform = 'rotate(-2deg) scale(1)';
+                            }
+                        } >
+                        {
                             editingNoteId === note.id ? ( <
                                 >
                                 <
@@ -575,7 +592,18 @@ function App() {
                     .filter(note => note.author === 'Kenyi')
                     .map(note => ( <
                         div key = { note.id }
-                        style = { styles.postItPink } > {
+                        style = { styles.postItPink }
+                        onMouseEnter = {
+                            (e) => {
+                                e.currentTarget.style.transform = 'rotate(0deg) scale(1.05)';
+                            }
+                        }
+                        onMouseLeave = {
+                            (e) => {
+                                e.currentTarget.style.transform = 'rotate(2deg) scale(1)';
+                            }
+                        } >
+                        {
                             editingNoteId === note.id ? ( <
                                 >
                                 <
@@ -737,11 +765,13 @@ function App() {
             gap: '20px',
             justifyContent: 'center',
             flexWrap: 'wrap',
-            marginTop: '20px'
+            marginTop: '20px',
+            alignItems: 'flex-start'
         },
         notesColumn: {
             flex: '1 1 200px',
-            maxWidth: '250px',
+            width: '100%',
+            maxWidth: '260px',
             display: 'flex',
             flexDirection: 'column',
             gap: '10px'
@@ -749,18 +779,22 @@ function App() {
         postItBlue: {
             background: '#d0e7ff',
             color: '#333',
-            padding: '12px',
-            borderRadius: '12px',
+            padding: '16px',
+            borderRadius: '14px',
             transform: 'rotate(-2deg)',
-            boxShadow: '0 8px 18px rgba(0,0,0,0.15)'
+            boxShadow: '0 12px 25px rgba(0,0,0,0.18)',
+            borderBottom: '3px solid rgba(0,0,0,0.08)',
+            transition: 'all 0.2s ease'
         },
         postItPink: {
             background: '#ffd6e7',
             color: '#333',
-            padding: '12px',
-            borderRadius: '12px',
+            padding: '16px',
+            borderRadius: '14px',
             transform: 'rotate(2deg)',
-            boxShadow: '0 8px 18px rgba(0,0,0,0.15)'
+            boxShadow: '0 12px 25px rgba(0,0,0,0.18)',
+            borderBottom: '3px solid rgba(0,0,0,0.08)',
+            transition: 'all 0.2s ease'
         },
         noteActions: {
             display: 'flex',
