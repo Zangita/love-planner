@@ -5,7 +5,9 @@ import {
     deletePlan,
     updatePlan,
     getNotes,
-    createNote
+    createNote,
+    updateNote,
+    deleteNote
 } from './services/api';
 
 import PlanCard from './components/PlanCard';
@@ -30,6 +32,8 @@ function App() {
     );
 
     const [newNote, setNewNote] = useState('');
+    const [editingNoteId, setEditingNoteId] = useState(null);
+    const [editedContent, setEditedContent] = useState('');
 
     useEffect(() => {
         getPlans()
@@ -146,6 +150,37 @@ function App() {
         });
 
         return groups;
+    }
+
+    function startEditing(note) {
+        setEditingNoteId(note.id);
+        setEditedContent(note.content);
+    }
+
+    async function saveEditedNote(id) {
+        try {
+            await updateNote(id, editedContent);
+
+            setNotes(prev =>
+                prev.map(n =>
+                    n.id === id ? {...n, content: editedContent } : n
+                )
+            );
+
+            setEditingNoteId(null);
+            setEditedContent('');
+        } catch (err) {
+            console.error('Error updating note:', err);
+        }
+    }
+
+    async function handleDeleteNote(id) {
+        try {
+            await deleteNote(id);
+            setNotes(prev => prev.filter(n => n.id !== id));
+        } catch (err) {
+            console.error('Error deleting note:', err);
+        }
     }
 
     const groupedPlans = groupPlansByTime(sortPlansByDate(plans));
